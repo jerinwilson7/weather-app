@@ -93,6 +93,7 @@ h2, label, p{
     justify-content: center;
     margin-right: 10px;
     color: white;
+    align-items: center;
 }
 
 .hourly-item img{
