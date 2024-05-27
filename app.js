@@ -1,8 +1,13 @@
 const apiKey = '58ba930b2cb94337c416ae307809ef79';
 
 
+// if(localStorage.getItem('city')){
+
+// }
+
 
 const getWeather = () => {
+  
     const city = document.getElementById('city').value;
     const currentWeatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
     const forecastUrl = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}`;
@@ -10,7 +15,7 @@ const getWeather = () => {
     if(!city){
         alert('please enter a city');
         return;
-    }
+    } 
 
     fetch(currentWeatherUrl)
         // .then(response=>response.json())
@@ -32,6 +37,9 @@ const getWeather = () => {
             displayHourlyForcast(data.list)
 
         })
+
+
+        localStorage.setItem('city',city )
 }
 
 
@@ -86,29 +94,6 @@ const displayHourlyForcast = (data) => {
     const next24Hours = data.slice(0, 8)
     console.log(next24Hours);
 
-    // const hourlyItem = next24Hours.map((item) => {
-
-    //     const dateTime = new Date(item.dt * 1000)
-    //     //  console.log(dateTime);
-
-    //     const hour = dateTime.getHours();
-    //     //  console.log(hour);
-    //     const temperature = Math.round(item.main.temp - 273.15);
-    //     const iconCode = item.weather[0].icon
-
-    //     const iconUrl = `https://openweathermap.org/img/wn/${iconCode}.png`;
-
-    //     return `
-    //            <div class="hourly-item>
-    //             <span>${hour}:00</span>
-    //             <img src ='${iconUrl}'>
-    //             <span>${temperature}&deg;C<span>
-    //           </div>`
-
-
-    // }).join('');
-    //     hourlyForecastDiv.innerHTML = hourlyItem
-
     next24Hours.forEach(item=>{
 
         const dateTIme = new Date(item.dt * 1000);
@@ -129,4 +114,21 @@ const displayHourlyForcast = (data) => {
             hourlyForecastDiv.innerHTML += hourlyItemHTML;
     })
 
+}
+
+
+// window.onload = () => {
+//     const storedCity = localStorage.getItem('city');
+//     if (storedCity) {
+//         // If there's a stored city, fetch weather for that city
+//         document.getElementById('city').value = storedCity;
+//         getWeather();
+//     }
+// };
+
+window.onload = () =>{
+    const storedCity = localStorage.getItem('city');
+
+    document.getElementById('city').value = storedCity;
+    getWeather();
 }
