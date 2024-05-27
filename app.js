@@ -1,4 +1,10 @@
 const apiKey = '58ba930b2cb94337c416ae307809ef79';
+const username = prompt('enter your name')
+const title = document.querySelector('h2')
+
+
+title.textContent = `Welcome, ${username}!`
+
 
 
 // if(localStorage.getItem('city')){
